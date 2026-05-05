@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - WDS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Wash & Drycleaning System Login</h1>
+
+        {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" action="/login">
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <div style="margin-top: 20px;">
+            <p><strong>Demo Cashier Account:</strong></p>
+            <p>Username: cashier</p>
+            <p>Password: cashier123</p>
+
+            <p><strong>Demo Admin Account:</strong></p>
+            <p>Username: admin</p>
+            <p>Password: admin123</p>
+        </div>
+    </div>
+</body>
+</html>

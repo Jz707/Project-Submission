@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Vendor Deliveries</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/entry">Order</a>
+    <a href="/search">Search Orders</a>
+
+    {% if session.get("user_role") == "admin" %}
+    <a href="/vendor">Vendor Deliveries</a>
+    <a href="/vendor_search">Vendor Search</a>
+    <a href="/analysis">Business Analysis</a>
+    {% endif %}
+
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="container">
+    <h1>Search Vendor Deliveries</h1>
+
+    <form action="/vendor_search" method="GET" class="form-row">
+        <div>
+            <label>Search</label>
+            <input type="text" name="search" placeholder="Vendor, supply, or ID" value="{{ search or '' }}">
+        </div>
+
+        <div>
+            <label>Vendor Name</label>
+            <input type="text" name="vendor" placeholder="Vendor name" value="{{ vendor or '' }}">
+        </div>
+
+        <div>
+            <label>Supply Name</label>
+            <input type="text" name="supply" placeholder="Supply name" value="{{ supply or '' }}">
+        </div>
+
+        <div>
+            <label>Date From</label>
+            <input type="date" name="date_from" value="{{ date_from or '' }}">
+        </div>
+
+        <div>
+            <label>Date To</label>
+            <input type="date" name="date_to" value="{{ date_to or '' }}">
+        </div>
+
+        <div>
+            <label>Sort By</label>
+            <select name="sort">
+                <option value="newest" {% if sort == "newest" %}selected{% endif %}>Newest First</option>
+                <option value="oldest" {% if sort == "oldest" %}selected{% endif %}>Oldest First</option>
+                <option value="cost_high" {% if sort == "cost_high" %}selected{% endif %}>Highest Cost</option>
+                <option value="cost_low" {% if sort == "cost_low" %}selected{% endif %}>Lowest Cost</option>
+                <option value="qty_high" {% if sort == "qty_high" %}selected{% endif %}>Highest Quantity</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit" class="btn">Search</button>
+        </div>
+    </form>
+
+    {% if deliveries %}
+<table>
+    <thead>
+        <tr>
+            <th>Delivery ID</th>
+            <th>Vendor Name</th>
+            <th>Delivery Date</th>
+            <th>Supply Name</th>
+            <th>Quantity</th>
+            <th>Unit Cost</th>
+            <th>Total Cost</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for delivery in deliveries %}
+        <tr>
+            <td>{{ delivery.delivery_id }}</td>
+            <td>{{ delivery.vendor_name }}</td>
+            <td>{{ delivery.delivery_date }}</td>
+            <td>{{ delivery.supply_name }}</td>
+            <td>{{ delivery.quantity }}</td>
+            <td>${{ "%.2f"|format(delivery.unit_cost) }}</td>
+            <td>${{ "%.2f"|format(delivery.total_cost) }}</td>
+            <td>{{ delivery.notes or '-' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No vendor deliveries found.</p>
+{% endif %}
+
+    <a href="/vendor" class="back-link">Back to Vendor Deliveries</a>
+</div>
+
+</body>
+</html>

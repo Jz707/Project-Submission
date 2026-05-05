@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=99">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/entry">Order</a>
+    <a href="/search">Search Orders</a>
+
+    {% if session.get("user_role") == "admin" %}
+    <a href="/vendor">Vendor Deliveries</a>
+    <a href="/vendor_search">Vendor Search</a>
+    <a href="/analysis">Business Analysis</a>
+    {% endif %}
+
+    <a href="/logout">Logout</a>
+</div>
+
+    <div class="container">
+        <h1>Edit Order #{{ order.order_id }}</h1>
+
+        <form method="POST">
+            <input type="hidden" name="customer_id" value="{{ order.customer_id }}">
+
+            <h2 class="section-title">Customer Information</h2>
+
+            <div class="form-row">
+                <div>
+                    <label for="first_name">First Name</label>
+                    <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        value="{{ order.first_name }}"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="last_name">Last Name</label>
+                    <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        value="{{ order.last_name }}"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="phone">Phone</label>
+                    <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value="{{ order.phone }}"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ order.email or '' }}"
+                    >
+                </div>
+            </div>
+
+            <h2 class="section-title">Order Information</h2>
+
+            <div class="form-row">
+                <div>
+                    <label for="dropoff_date">Dropoff Date</label>
+                    <input
+                        type="date"
+                        id="dropoff_date"
+                        name="dropoff_date"
+                        value="{{ order.dropoff_date }}"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="promised_date">Promised Date</label>
+                    <input
+                        type="date"
+                        id="promised_date"
+                        name="promised_date"
+                        value="{{ order.promised_date }}"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="payment_status">Payment Status</label>
+                    <select id="payment_status" name="payment_status">
+                        <option value="Paid" {% if order.payment_status == 'Paid' %}selected{% endif %}>Paid</option>
+                        <option value="Unpaid" {% if order.payment_status == 'Unpaid' %}selected{% endif %}>Unpaid</option>
+                        <option value="Partial" {% if order.payment_status == 'Partial' %}selected{% endif %}>Partial</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="order_status">Order Status</label>
+                    <select id="order_status" name="order_status">
+                        <option value="Received" {% if order.order_status == 'Received' %}selected{% endif %}>Received</option>
+                        <option value="Cleaning" {% if order.order_status == 'Cleaning' %}selected{% endif %}>Cleaning</option>
+                        <option value="Ready" {% if order.order_status == 'Ready' %}selected{% endif %}>Ready</option>
+                        <option value="Picked Up" {% if order.order_status == 'Picked Up' %}selected{% endif %}>Picked Up</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="total_items">Total Items</label>
+                    <input
+                        type="number"
+                        id="total_items"
+                        name="total_items"
+                        value="{{ order.total_items }}"
+                        min="0"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="total_amount">Total Amount ($)</label>
+                    <input
+                        type="number"
+                        id="total_amount"
+                        name="total_amount"
+                        value="{{ order.total_amount }}"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+                </div>
+            </div>
+
+            <label for="notes">Notes</label>
+            <textarea
+                id="notes"
+                name="notes"
+                rows="4"
+            >{{ order.notes or '' }}</textarea>
+
+            <div class="button-group">
+                <button type="submit" class="btn">Save Changes</button>
+                <a href="/search" class="back-link">Back to Search</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

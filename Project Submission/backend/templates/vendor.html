@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Deliveries</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/entry">Order</a>
+    <a href="/search">Search Orders</a>
+
+    {% if session.get("user_role") == "admin" %}
+    <a href="/vendor">Vendor Deliveries</a>
+    <a href="/vendor_search">Vendor Search</a>
+    <a href="/analysis">Business Analysis</a>
+    {% endif %}
+
+    <a href="/logout">Logout</a>
+</div>
+
+<p style="font-size: 14px; color: gray;">
+    Logged in as: {{ session.get("username") }} / {{ session.get("user_role") }}
+</p>
+
+<div class="container">
+    <h1>Vendor Deliveries</h1>
+
+    <form method="POST" action="/vendor">
+
+        <!-- Vendor Dropdown -->
+        <label>Vendor Name</label>
+        <select name="vendor_name" required>
+            <option value="">-- Select vendor --</option>
+            <option value="CleanPro Supplies">CleanPro Supplies</option>
+            <option value="FreshWash Co.">FreshWash Co.</option>
+            <option value="SparkleChem">SparkleChem</option>
+            <option value="EcoClean Inc.">EcoClean Inc.</option>
+            <option value="LaundryPlus">LaundryPlus</option>
+        </select>
+
+        <!-- Date -->
+        <label>Delivery Date</label>
+        <input type="date" name="delivery_date" required>
+
+        <!-- Supply Dropdown -->
+        <label>Supply Name</label>
+        <select name="supply_name" required>
+            <option value="">-- Select supply --</option>
+            <option value="Detergent">Detergent</option>
+            <option value="Fabric Softener">Fabric Softener</option>
+            <option value="Bleach">Bleach</option>
+            <option value="Hangers">Hangers</option>
+            <option value="Garment Bags">Garment Bags</option>
+            <option value="Stain Remover">Stain Remover</option>
+            <option value="Dry Cleaning Fluid">Dry Cleaning Fluid</option>
+            <option value="Spot Cleaner">Spot Cleaner</option>
+            <option value="Laundry Bags">Laundry Bags</option>
+            <option value="Receipt Paper">Receipt Paper</option>
+        </select>
+
+        <!-- Quantity (UPDATED) -->
+        <label>Quantity</label>
+        <input 
+            type="number" 
+            name="quantity" 
+            min="1" 
+            placeholder="Enter quantity (e.g., 25)" 
+            required
+        >
+
+        <!-- Unit Cost (UPDATED) -->
+        <label>Unit Cost</label>
+        <input 
+            type="number" 
+            name="unit_cost" 
+            step="0.01" 
+            min="0" 
+            placeholder="Enter unit cost (e.g., 5.50)" 
+            required
+        >
+
+        <!-- Notes -->
+        <label>Notes</label>
+        <textarea name="notes" placeholder="Optional notes"></textarea>
+
+        <!-- Buttons -->
+        <button type="submit" class="btn">Submit</button>
+        <a href="/vendor_search" class="btn">Search Deliveries</a>
+    </form>
+
+    <a href="/" class="back-link">Back to Home</a>
+</div>
+
+</body>
+</html>

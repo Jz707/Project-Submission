@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wash & Drycleaning Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/entry">Order</a>
+    <a href="/search">Search Orders</a>
+
+    {% if session.get("user_role") == "admin" %}
+    <a href="/vendor">Vendor Deliveries</a>
+    <a href="/vendor_search">Vendor Search</a>
+    <a href="/analysis">Business Analysis</a>
+    {% endif %}
+
+    <a href="/logout">Logout</a>
+</div>
+
+<p style="font-size: 14px; color: gray;">
+    Logged in as: {{ session.get("username") }} / {{ session.get("user_role") }}
+</p>
+
+    <div class="container">
+        <h1>Wash & Drycleaning Shop</h1>
+        <p>Frontend Prototype - Group 9</p>
+
+        <div class="button-group">
+    <a href="/entry" class="btn">Order</a>
+    <a href="/search" class="btn">Search Orders</a>
+
+    {% if session.get("user_role") == "admin" %}
+        <a href="/vendor" class="btn">Vendor Deliveries</a>
+        <a href="/vendor_search" class="btn">Vendor Search</a>
+        <a href="/analysis" class="btn">Business Analysis</a>
+    {% endif %}
+</div>
+    </div>
+</body>
+</html>

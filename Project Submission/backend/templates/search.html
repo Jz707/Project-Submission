@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=99">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/entry">Order</a>
+    <a href="/search">Search Orders</a>
+    
+
+    {% if session.get("user_role") == "admin" %}
+    <a href="/vendor">Vendor Deliveries</a>
+    <a href="/vendor_search">Vendor Search</a>
+    <a href="/analysis">Business Analysis</a>
+    {% endif %}
+
+    <a href="/logout">Logout</a>
+</div>
+
+<p style="font-size: 14px; color: gray;">
+    Logged in as: {{ session.get("username") }} / {{ session.get("user_role") }}
+</p>
+
+    <div class="container">
+        <h1>Search Orders</h1>
+
+        <!-- SUCCESS MESSAGES -->
+        {% if edited %}
+        <script>
+            alert("Order updated successfully.");
+        </script>
+        <p class="success-message">Order updated successfully.</p>
+        {% endif %}
+
+        {% if deleted %}
+        <script>
+            alert("Order deleted successfully.");
+        </script>
+        <p class="success-message">Order deleted successfully.</p>
+        {% endif %}
+
+        <!-- ============================= -->
+        <!-- UPDATED SEARCH FORM (STEP 3) -->
+        <!-- ============================= -->
+        <form action="/search" method="GET" class="form-row">
+    <div>
+        <label for="search">Search</label>
+        <input
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Customer name, order ID, phone, email, or notes"
+            value="{{ search_term if search_term else '' }}"
+        >
+    </div>
+
+    <div>
+        <label>Payment Status</label>
+        <select name="payment_status">
+            <option value="">All</option>
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+            <option value="Partial">Partial</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Order Status</label>
+        <select name="order_status">
+            <option value="">All</option>
+            <option value="Received">Received</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Ready">Ready</option>
+            <option value="Picked Up">Picked Up</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Date From</label>
+        <input type="date" name="date_from">
+    </div>
+
+    <div>
+        <label>Date To</label>
+        <input type="date" name="date_to">
+    </div>
+
+    <div>
+        <label>Sort By</label>
+        <select name="sort">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="amount_high">Highest Amount</option>
+            <option value="amount_low">Lowest Amount</option>
+            <option value="items_high">Most Items</option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit" class="btn">Search</button>
+    </div>
+</form>
+
+        <!-- ============================= -->
+        <!-- RESULTS TABLE -->
+        <!-- ============================= -->
+        {% if orders %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Phone</th>
+                        <th>Dropoff Date</th>
+                        <th>Promised Date</th>
+                        <th>Payment Status</th>
+                        <th>Order Status</th>
+                        <th>Total Items</th>
+                        <th>Total Amount</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.customer_name }}</td>
+                        <td>{{ order.phone }}</td>
+                        <td>{{ order.dropoff_date }}</td>
+                        <td>{{ order.promised_date }}</td>
+                        <td>{{ order.payment_status }}</td>
+                        <td>{{ order.order_status }}</td>
+                        <td>{{ order.total_items }}</td>
+                        <td>{{ order.total_amount }}</td>
+                        <td>{{ order.notes }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% elif search_term %}
+            <p style="margin-top: 20px;">No matching orders found.</p>
+        {% endif %}
+
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+
+</body>
+</html>
