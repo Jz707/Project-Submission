@@ -905,8 +905,6 @@ def vendor_search():
 
 @app.route("/analysis", methods=["GET"])
 @admin_required
-@app.route("/analysis", methods=["GET"])
-@admin_required
 def analysis():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
