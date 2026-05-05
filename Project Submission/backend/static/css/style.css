@@ -1,0 +1,256 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fb;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #1f4e79;
+    padding: 14px 30px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 60%;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #1f4e79;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #1f4e79;
+    border-bottom: 2px solid #d9e2ec;
+    padding-bottom: 8px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #1f4e79;
+    color: white;
+    padding: 14px 24px;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #163a5a;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #1f4e79;
+    font-weight: bold;
+}
+
+/* ============================= */
+/* FORM ROW (SIDE-BY-SIDE FIELDS) */
+/* ============================= */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-row div {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ============================= */
+/* TABLE STYLING (SEARCH PAGE) */
+/* ============================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table header */
+th {
+    background-color: #1f4e79;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+/* Table cells */
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Zebra striping */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect */
+tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* ============================= */
+/* SEARCH FORM ALIGNMENT */
+/* ============================= */
+form.form-row {
+    align-items: flex-end;
+}
+
+/* ============================= */
+/* SUCCESS MESSAGE */
+/* ============================= */
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* ============================= */
+/* ACTION BUTTON SPACING */
+/* ============================= */
+td .btn {
+    margin-right: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+/* Delete button (optional red) */
+.btn-delete {
+    background-color: #c0392b;
+}
+
+.btn-delete:hover {
+    background-color: #922b21;
+}
+
+/* ============================= */
+/* TABLE ROW SPACING IMPROVEMENTS */
+/* ============================= */
+
+/* Increase row height */
+td {
+    padding: 16px 12px;
+    vertical-align: middle;
+}
+
+/* Add more spacing between rows */
+tbody tr {
+    border-bottom: 1px solid #e5e9f2;
+}
+
+/* Prevent cramped text */
+td, th {
+    line-height: 1.5;
+}
+
+/* ============================= */
+/* NOTES COLUMN FORMATTING */
+/* ============================= */
+td:nth-child(10) {
+    max-width: 180px;
+    word-wrap: break-word;
+}
+
+/* ============================= */
+/* ACTION BUTTONS ALIGNMENT */
+/* ============================= */
+td:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Make buttons consistent size */
+td .btn {
+    width: 70px;
+    text-align: center;
+    padding: 6px 10px;
+}
+
+/* ============================= */
+/* TABLE HEADER IMPROVEMENT */
+/* ============================= */
+th {
+    padding: 14px 12px;
+    font-weight: 600;
+}
+
+/* ============================= */
+/* SEARCH BAR SPACING */
+/* ============================= */
+.form-row {
+    margin-bottom: 25px;
+}
+
+/* Align search button better */
+.form-row .btn {
+    height: 44px;
+}
+
+/* ============================= */
+/* CONTAINER IMPROVEMENT */
+/* ============================= */
+.container {
+    width: 70%;
+}
