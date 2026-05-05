@@ -905,6 +905,8 @@ def vendor_search():
 
 @app.route("/analysis", methods=["GET"])
 @admin_required
+@app.route("/analysis", methods=["GET"])
+@admin_required
 def analysis():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -999,6 +1001,26 @@ def analysis():
         fig.savefig(os.path.join(graph_dir, "salesPerMonth.jpg"), bbox_inches="tight")
         plt.close(fig)
 
+    cursor.execute("""
+        SELECT 
+	        DATE_FORMAT(vd.delivery_date, '%M-%Y') AS month_name,
+	        SUM(vd.total_cost) AS monthly_cost
+        FROM vendor_deliveries vd
+        GROUP BY DATE_FORMAT(vd.delivery_date, '%M-%Y')
+        ;
+        """)
+    monthExpensesDf = pd.DataFrame(cursor.fetchall())
+    if not monthExpensesDf.empty:
+        fig.ax = plt.subplots()
+        ax.bar(monthExpensesDf['month_name'], monthExpensesDf['monthly_cost'])
+        ax.set_xlabel("Month")
+        ax.set_ylabel("Total Expenses")
+        ax.set_title("Sales vs Expenses per Month")
+        plt.xticks(rotation=45, ha="right")
+        fig.savefig(os.path.join(graph_dir, "expensesPerMonth.jpg"), bbox_inches="tight")
+        plt.close(fig)
+
+
     cursor.close()
     conn.close()
 
@@ -1007,8 +1029,9 @@ def analysis():
         paymentStatus="graphs/paymentStatus.jpg",
         salesAnalysis="graphs/salesAnalysis.jpg",
         byItemTypes="graphs/byItemTypes.jpg",
-        salesPerMonth="graphs/salesPerMonth.jpg"
-    )
+        salesPerMonth="graphs/salesPerMonth.jpg",
+        expensesPerMonth="graphs/expensesPerMonth.jpg",
+        )
 
 
 if __name__ == "__main__":
